@@ -1,0 +1,64 @@
+# BitSrunLoginGo 配置文件模板
+#
+# 使用方法：
+#   1. 复制本文件为 Config.yaml
+#   2. 填写 form 里的 username（账号）、password（密码）
+#   3. 按自己的运营商填写 user_type
+#   4. 运行：./bitsrun --config=./Config.yaml
+#
+# 软件下载（按自己的系统/架构选择对应版本）：
+#   https://github.com/Mmx233/BitSrunLoginGo/releases
+
+form:
+  domain: 172.19.0.5   # 学校校园网认证服务器地址（全校通用，一般不用改）
+  username: ""         # 你的校园网账号
+  user_type: ""        # 运营商：移动填 cmcc，联通填 cucc，电信填 ctcc；无运营商则留空 ""
+  password: ""         # 你的校园网密码
+
+meta: # 登录参数
+  "n": "200"
+  type: "1"
+  acid: "17"           # 学校认证参数（全校通用，一般不用改）
+  enc: srun_bx1        # 一般默认值；建议运行时加 --auto-enc 自动嗅探
+  os: Windows 10
+  name: windows
+  info_prefix: SRBX1   # 一般默认值
+  double_stack: false
+
+settings:
+  basic:
+    https: false
+    skip_cert_verify: false
+    timeout: 5
+    interfaces: ""      # 多网卡模式填网卡正则，单网卡留空
+    interfaces_interval: 0
+    dns_server: ""      # 如 114.114.114.114，留空用系统默认
+  guardian: # 守护模式：后台常驻，掉线自动重连
+    enable: true
+    duration: 300
+  backoff: # 登录失败重试退避
+    enable: true
+    max_retries: 0      # 0 表示无限重试
+    initial_duration: 2
+    max_duration: 300
+    exponent_factor: 1
+    inter_const_factor: 0
+    outer_const_factor: 0
+  log:
+    debug_level: false
+    write_file: false
+    log_path: ./
+    log_name: ""
+  ddns:
+    enable: false
+    domain: www.example.com
+    ttl: 600
+    provider: "cloudflare"
+    config:
+      zone: "xxxx"
+      token: "xxxx"
+  reality:
+    enable: false
+    addr: http://www.baidu.com
+  custom_header:
+    User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:89.0) Gecko/20100101 Firefox/89.0
